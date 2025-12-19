@@ -9,7 +9,7 @@ class Settings(BaseSettings):
     
     DATABASE_URL: str 
     
-    DEBUF: bool = False
+    DEBUG: bool = False
     
     ALLOWED_ORIGINS: str = ""
     

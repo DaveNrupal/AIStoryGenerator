@@ -2,10 +2,10 @@ import uuid
 from typing import Optional
 from datetime import datetime
 from fastapi import APIRouter, Depends, HTTPException, Cookie, Response, BackgroundTasks
-from backend import db
+# from backend import db
 from sqlalchemy.orm import Session
 
-from db.database import get_db, sessionLocal
+from db.database import db_get as get_db, sessionLocal
 from models. story import Story, StoryNode
 from models.job import StoryJob
 from schemas.story import (
@@ -77,9 +77,9 @@ def generate_story_task(job_id: str, theme: str, session_id: str):
            job.status = "failed"
            job.created_at = datetime.now()
            job.error = str(e)
-           db.commit()
-    finally:
-        db.close()
+           db.commit()   
+   finally:
+       db.close()
 
 @router.get("/{story_id}/complete", response_model=CompleteStoryResponse)
 def get_complete_story(story_id: int, db: Session = Depends(get_db)):
